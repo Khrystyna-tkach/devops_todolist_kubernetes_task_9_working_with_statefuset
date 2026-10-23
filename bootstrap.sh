@@ -4,16 +4,10 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
-CLUSTER_NAME="todo-lab"
+kind create cluster --name todo-lab --config cluster.yml
 
-# 1. Create kind cluster if needed
-if ! kind get clusters | grep -Fxq "$CLUSTER_NAME"; then
-  kind create cluster \
-    --name "$CLUSTER_NAME" \
-    --config cluster.yml
-fi
-
-kubectl config use-context "kind-$CLUSTER_NAME"
+# Select cluster context
+kubectl config use-context kind-todo-lab
 
 # 2. Create namespaces
 kubectl create namespace mysql \
@@ -21,6 +15,8 @@ kubectl create namespace mysql \
 
 kubectl create namespace todoapp \
   --dry-run=client -o yaml | kubectl apply -f -
+
+kind create cluster --name todo-lab --config cluster.yml
 
 # 3. Read required credentials
 : "${MYSQL_ROOT_PASSWORD:?MYSQL_ROOT_PASSWORD is required}"
