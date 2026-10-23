@@ -47,6 +47,26 @@ spec:
             secretKeyRef:
               name: app-secret
               key: SECRET_KEY
+        - name: NAME
+          valueFrom:
+            secretKeyRef:
+              name: app-db-secret
+              key: NAME
+        - name: USER
+          valueFrom:
+            secretKeyRef:
+              name: app-db-secret
+              key: USER
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-db-secret
+              key: PASSWORD
+        - name: HOST
+          valueFrom:
+            secretKeyRef:
+              name: app-db-secret
+              key: HOST
         ports:
         - containerPort: 8080
         livenessProbe:
