@@ -5,7 +5,7 @@ metadata:
   namespace: mysql
 spec:
   selector:
-    matchLabes:
+    matchLabels:
       apps: mysql
   replicas: 3
   serviceName: mysql
@@ -59,7 +59,7 @@ spec:
             exec:
               command:
                 - sh
-                - - c
+                - -c
                 - mysqladmin ping -h 127.0.0.1 --silent
             initialDelaySeconds: 10
             periodSeconds: 20
